@@ -2675,6 +2675,7 @@ type aliases:
 **getClipFromWorldMatrix()**              | float4x4 |  Matrix that converts from world to clip (NDC) space
 **getClipFromWorldMatrix(int eyeIndex)**  | float4x4 |  Matrix that converts from world to clip (NDC) space for the eye referred to by eyeIndex
 **getWorldFromClipMatrix()**              | float4x4 |  Matrix that converts from clip (NDC) space to world space
+**getWorldRayFromClip(float2 clipXY)**    | float3   |  Transforms a 2D clip-space position directly into an un-translated world-space ray direction
 
 ### Frame constants
 

@@ -52,6 +52,15 @@ void PerViewDescriptorSetUtils::prepareCamera(PerViewUib& s,
     s.clipFromViewMatrix  = clipFromView;     // projection
     s.viewFromClipMatrix  = viewFromClip;     // 1/projection
     s.worldFromClipMatrix = worldFromClip;    // 1/(projection * view)
+
+    // Collapsed 3x3 clip-to-world ray matrix (strips 3D translation)
+    mat3f rayFromClip;
+    rayFromClip[0] = worldFromView[0].xyz * viewFromClip[0][0];
+    rayFromClip[1] = worldFromView[1].xyz * viewFromClip[1][1];
+    rayFromClip[2] = worldFromView[0].xyz * viewFromClip[3][0] +
+                     worldFromView[1].xyz * viewFromClip[3][1] +
+                     worldFromView[2].xyz * viewFromClip[2][2];
+    s.worldRayFromClipMatrix = rayFromClip;
     s.userWorldFromWorldMatrix = mat4f(inverse(camera.worldTransform));
     s.clipTransform = camera.clipTransform;
     s.cameraFar = camera.zf;
